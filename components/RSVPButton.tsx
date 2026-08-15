@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 
 export default function RSVPButton() {
   const [clicked, setClicked] = useState(false);
-  const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
+  const [noPosition, setNoPosition] = useState<{x: number; y: number; moved?: boolean}>({ x: 0, y: 0 });
 
   const handleClick = useCallback(() => {
     if (clicked) return;
@@ -106,9 +106,9 @@ export default function RSVPButton() {
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: 'var(--radius-full)',
                 cursor: 'pointer',
-                position: (noPosition as any).moved ? 'fixed' : 'relative',
-                left: (noPosition as any).moved ? `${noPosition.x}px` : 'auto',
-                top: (noPosition as any).moved ? `${noPosition.y}px` : 'auto',
+                position: noPosition.moved ? 'fixed' : 'relative',
+                left: noPosition.moved ? `${noPosition.x}px` : 'auto',
+                top: noPosition.moved ? `${noPosition.y}px` : 'auto',
                 transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                 zIndex: 9999,
               }}
